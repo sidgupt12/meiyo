@@ -137,7 +137,7 @@ export default function HomePage() {
 
           {/* Large content area */}
           <div className="mt-16">
-            <div className="w-full h-80 bg-white/[0.08] rounded-lg transition-colors"></div>
+            <div className="w-full h-80 bg-gray-100 dark:bg-white/[0.08] rounded-lg transition-colors"></div>
           </div>
         </section>
 
@@ -181,7 +181,7 @@ export default function HomePage() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="aspect-video bg-white/[0.08] rounded-lg hover:bg-white/[0.12] transition-colors cursor-pointer"
+                className="aspect-video bg-gray-100 dark:bg-white/[0.08] rounded-lg hover:bg-gray-200 dark:hover:bg-white/[0.12] transition-colors cursor-pointer"
               ></div>
             ))}
           </div>
