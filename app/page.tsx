@@ -432,8 +432,8 @@ export default function HomePage() {
 
         {/* Footer */}
         <footer id="contact" className="px-8 py-16 border-t border-gray-200 dark:border-gray-800 transition-colors">
-          <div className="flex flex-col lg:flex-row justify-between gap-12">
-            <div className="flex items-center">
+          <div className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-12">
+            <div className="flex items-center justify-center lg:justify-start">
               <Image
                 src="/logo.png"
                 alt="Meiyo Logo"
@@ -443,7 +443,7 @@ export default function HomePage() {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-16">
               <div>
                 <h4 className="font-medium mb-4 text-black dark:text-white transition-colors">Platform</h4>
                 <ul className="space-y-2 text-gray-600 dark:text-gray-400 transition-colors">
@@ -486,7 +486,7 @@ export default function HomePage() {
                 </ul>
               </div>
 
-              <div>
+              <div className="col-span-2 sm:col-span-1">
                 <h4 className="font-medium mb-4 text-black dark:text-white transition-colors">Meiyo</h4>
                 <ul className="space-y-2 text-gray-600 dark:text-gray-400 transition-colors">
                   <li>
@@ -509,7 +509,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400 text-sm transition-colors">
+          <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400 text-sm transition-colors text-center lg:text-left">
             <p>© 2023–2025</p>
             <p>All Rights Reserved</p>
           </div>
