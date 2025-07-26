@@ -211,7 +211,7 @@ export default function HomePage() {
                   <span className="text-gray-700 dark:text-custom-gray leading-relaxed transition-colors">30 days of dedicated support to nurture your first steps</span>
                 </li>
               </ul>
-              <Button className="w-full text-white dark:bg-custom-white dark:text-black hover:dark:bg-gray-100 border-0 rounded-full py-4 font-medium text-base transition-colors" style={{backgroundColor: 'rgba(255, 255, 255, 0.08)', color: 'white'}} onMouseEnter={(e) => {(e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'; (e.target as HTMLElement).style.color = 'white'}} onMouseLeave={(e) => {(e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'; (e.target as HTMLElement).style.color = 'white'}}>
+              <Button className="w-full bg-black dark:bg-white/[0.08] text-white dark:text-white hover:bg-gray-800 dark:hover:bg-white/[0.12] border-0 rounded-full py-4 font-medium text-base transition-colors">
                 Begin the journey
               </Button>
             </div>
@@ -257,7 +257,7 @@ export default function HomePage() {
                   <span className="text-gray-700 dark:text-custom-gray leading-relaxed transition-colors">Priority response — first light of attention when you need us</span>
                 </li>
               </ul>
-              <Button className="w-full text-white dark:bg-custom-white dark:text-black hover:dark:bg-gray-100 border-0 rounded-full py-4 font-medium text-base mt-[1.625rem] transition-colors" style={{backgroundColor: 'rgba(255, 255, 255, 0.08)', color: 'white'}} onMouseEnter={(e) => {(e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'; (e.target as HTMLElement).style.color = 'white'}} onMouseLeave={(e) => {(e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'; (e.target as HTMLElement).style.color = 'white'}}>
+              <Button className="w-full bg-black dark:bg-white/[0.08] text-white dark:text-white hover:bg-gray-800 dark:hover:bg-white/[0.12] border-0 rounded-full py-4 font-medium text-base mt-[1.625rem] transition-colors">
                 Sustain and grow
               </Button>
             </div>
@@ -269,9 +269,8 @@ export default function HomePage() {
           <div className="space-y-4 max-w-4xl mx-auto">
             <Collapsible>
               <CollapsibleTrigger 
-                className="flex items-center justify-between w-full p-4 bg-white/[0.08] dark:bg-custom-card rounded-lg text-left dark:hover:bg-gray-800 transition-colors"
-                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'}
-                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'}
+                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                onClick={e => e.currentTarget.blur()}
               >
                 <span className="text-black dark:text-white">How do we begin working together?</span>
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
@@ -284,9 +283,8 @@ export default function HomePage() {
 
             <Collapsible>
               <CollapsibleTrigger 
-                className="flex items-center justify-between w-full p-4 bg-white/[0.08] dark:bg-custom-card rounded-lg text-left dark:hover:bg-gray-800 transition-colors"
-                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'}
-                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'}
+                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                onClick={e => e.currentTarget.blur()}
               >
                 <span className="text-black dark:text-white">Is pricing fixed? Any hidden fees?</span>
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
@@ -299,9 +297,8 @@ export default function HomePage() {
 
             <Collapsible>
               <CollapsibleTrigger 
-                className="flex items-center justify-between w-full p-4 bg-white/[0.08] dark:bg-custom-card rounded-lg text-left dark:hover:bg-gray-800 transition-colors"
-                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'}
-                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'}
+                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                onClick={e => e.currentTarget.blur()}
               >
                 <span className="text-black dark:text-white">How long does it take to launch an MVP?</span>
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
@@ -314,9 +311,8 @@ export default function HomePage() {
 
             <Collapsible>
               <CollapsibleTrigger 
-                className="flex items-center justify-between w-full p-4 bg-white/[0.08] dark:bg-custom-card rounded-lg text-left dark:hover:bg-gray-800 transition-colors"
-                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'}
-                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'}
+                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                onClick={e => e.currentTarget.blur()}
               >
                 <span className="text-black dark:text-white">Is pricing fixed? Any hidden fees?</span>
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
@@ -329,9 +325,8 @@ export default function HomePage() {
 
             <Collapsible>
               <CollapsibleTrigger 
-                className="flex items-center justify-between w-full p-4 bg-white/[0.08] dark:bg-custom-card rounded-lg text-left dark:hover:bg-gray-800 transition-colors"
-                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'}
-                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'}
+                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                onClick={e => e.currentTarget.blur()}
               >
                 <span className="text-black dark:text-white">How long does it take to launch an MVP?</span>
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
