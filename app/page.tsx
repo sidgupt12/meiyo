@@ -41,7 +41,7 @@ export default function HomePage() {
       
       <div className="min-h-screen bg-white dark:bg-black transition-colors">
       {/* Fixed Floating Header */}
-      <header className="fixed top-4 inset-x-0 mx-auto flex items-center justify-between w-full max-w-[calc(100vw-2rem)] md:max-w-3xl px-1 sm:px-2 md:px-4 py-1 sm:py-2 backdrop-blur-xl bg-white/60 dark:bg-black/40 rounded-full border border-gray-200/50 dark:border-gray-600/70 shadow-lg dark:shadow-gray-700/50 relative">
+      <header className="fixed top-4 inset-x-0 z-50 mx-auto flex items-center justify-between w-full max-w-[calc(100vw-2rem)] md:max-w-3xl px-1 sm:px-2 md:px-4 py-1 sm:py-2 backdrop-blur-xl bg-white/60 dark:bg-black/40 rounded-full border border-gray-200/50 dark:border-gray-600/70 shadow-lg dark:shadow-gray-700/50">
         {/* Left: Logo */}
         <div className="flex items-center mr-1 sm:mr-2 md:mr-4">
           <Image
