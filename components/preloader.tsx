@@ -103,23 +103,6 @@ export function Preloader() {
                   isDark ? 'bg-black shadow-sm' : 'bg-white shadow-sm'
                 } border-2 ${isDark ? 'border-gray-800' : 'border-gray-200'}`}
               />
-              
-              {/* Optional: Add small dots around the center for more tire-like effect */}
-              <div className="absolute inset-0">
-                {[0, 60, 120, 180, 240, 300].map((degree) => (
-                  <div
-                    key={degree}
-                    className={`absolute w-2 h-2 rounded-full ${
-                      isDark ? 'bg-black/30' : 'bg-white/30'
-                    }`}
-                    style={{
-                      top: '50%',
-                      left: '50%',
-                      transform: `translate(-50%, -50%) rotate(${degree}deg) translateY(-45px)`,
-                    }}
-                  />
-                ))}
-              </div>
             </div>
           </div>
         </div>
