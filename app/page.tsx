@@ -6,6 +6,7 @@ import { Plus } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { Preloader } from "@/components/preloader"
 
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState("")
@@ -34,7 +35,9 @@ export default function HomePage() {
   }, [])
 
   return (
-        <div className="min-h-screen bg-white dark:bg-black transition-colors">
+    <>
+      <Preloader />
+      <div className="min-h-screen bg-white dark:bg-black transition-colors">
       {/* Fixed Floating Header */}
       <header className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 flex items-center justify-between px-8 py-2 backdrop-blur-xl bg-white/60 dark:bg-black/40 rounded-full border border-gray-200/50 dark:border-gray-600/70 shadow-lg dark:shadow-gray-700/50 w-auto max-w-6xl">
         <div className="flex items-center mr-4">
@@ -387,5 +390,6 @@ export default function HomePage() {
         </footer>
       </div>
     </div>
+    </>
   )
 }
