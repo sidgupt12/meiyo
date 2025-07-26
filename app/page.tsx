@@ -137,7 +137,7 @@ export default function HomePage() {
 
           {/* Large content area */}
           <div className="mt-16">
-            <div className="w-full h-80 bg-gray-100 dark:bg-custom-white rounded-lg transition-colors"></div>
+            <div className="w-full h-80 bg-white/[0.08] rounded-lg transition-colors"></div>
           </div>
         </section>
 
@@ -181,7 +181,7 @@ export default function HomePage() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="aspect-video bg-gray-100 dark:bg-custom-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-100 transition-colors cursor-pointer"
+                className="aspect-video bg-white/[0.08] rounded-lg hover:bg-white/[0.12] transition-colors cursor-pointer"
               ></div>
             ))}
           </div>
@@ -211,7 +211,7 @@ export default function HomePage() {
                   <span className="text-gray-700 dark:text-custom-gray leading-relaxed transition-colors">30 days of dedicated support to nurture your first steps</span>
                 </li>
               </ul>
-              <Button className="w-full bg-gray-200 dark:bg-custom-white text-gray-800 dark:text-black hover:bg-gray-300 dark:hover:bg-gray-100 border-0 rounded-full py-4 font-medium text-base transition-colors">
+              <Button className="w-full text-white dark:bg-custom-white dark:text-black hover:dark:bg-gray-100 border-0 rounded-full py-4 font-medium text-base transition-colors" style={{backgroundColor: 'rgba(255, 255, 255, 0.08)', color: 'white'}} onMouseEnter={(e) => {(e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'; (e.target as HTMLElement).style.color = 'white'}} onMouseLeave={(e) => {(e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'; (e.target as HTMLElement).style.color = 'white'}}>
                 Begin the journey
               </Button>
             </div>
@@ -257,7 +257,7 @@ export default function HomePage() {
                   <span className="text-gray-700 dark:text-custom-gray leading-relaxed transition-colors">Priority response — first light of attention when you need us</span>
                 </li>
               </ul>
-              <Button className="w-full bg-gray-200 dark:bg-custom-white text-gray-800 dark:text-black hover:bg-gray-300 dark:hover:bg-gray-100 border-0 rounded-full py-4 font-medium text-base mt-[1.625rem] transition-colors">
+              <Button className="w-full text-white dark:bg-custom-white dark:text-black hover:dark:bg-gray-100 border-0 rounded-full py-4 font-medium text-base mt-[1.625rem] transition-colors" style={{backgroundColor: 'rgba(255, 255, 255, 0.08)', color: 'white'}} onMouseEnter={(e) => {(e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'; (e.target as HTMLElement).style.color = 'white'}} onMouseLeave={(e) => {(e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'; (e.target as HTMLElement).style.color = 'white'}}>
                 Sustain and grow
               </Button>
             </div>
@@ -268,18 +268,26 @@ export default function HomePage() {
         <section id="faq" className="px-8 py-16">
           <div className="space-y-4 max-w-4xl mx-auto">
             <Collapsible>
-              <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-gray-100 dark:bg-custom-card rounded-lg text-left hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+              <CollapsibleTrigger 
+                className="flex items-center justify-between w-full p-4 bg-white/[0.08] dark:bg-custom-card rounded-lg text-left dark:hover:bg-gray-800 transition-colors"
+                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'}
+                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'}
+              >
                 <span className="text-black dark:text-white">How do we begin working together?</span>
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
               </CollapsibleTrigger>
-              <CollapsibleContent className="p-4 bg-gray-50 dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
+              <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
                 We start with a gentle conversation about your vision, followed by a clear proposal that honors your
                 ideas and timeline.
               </CollapsibleContent>
             </Collapsible>
 
             <Collapsible>
-              <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-gray-100 dark:bg-custom-card rounded-lg text-left hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+              <CollapsibleTrigger 
+                className="flex items-center justify-between w-full p-4 bg-white/[0.08] dark:bg-custom-card rounded-lg text-left dark:hover:bg-gray-800 transition-colors"
+                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'}
+                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'}
+              >
                 <span className="text-black dark:text-white">Is pricing fixed? Any hidden fees?</span>
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
               </CollapsibleTrigger>
@@ -290,7 +298,11 @@ export default function HomePage() {
             </Collapsible>
 
             <Collapsible>
-              <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-gray-100 dark:bg-custom-card rounded-lg text-left hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+              <CollapsibleTrigger 
+                className="flex items-center justify-between w-full p-4 bg-white/[0.08] dark:bg-custom-card rounded-lg text-left dark:hover:bg-gray-800 transition-colors"
+                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'}
+                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'}
+              >
                 <span className="text-black dark:text-white">How long does it take to launch an MVP?</span>
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
               </CollapsibleTrigger>
@@ -301,22 +313,30 @@ export default function HomePage() {
             </Collapsible>
 
             <Collapsible>
-              <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-gray-100 dark:bg-custom-card rounded-lg text-left hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+              <CollapsibleTrigger 
+                className="flex items-center justify-between w-full p-4 bg-white/[0.08] dark:bg-custom-card rounded-lg text-left dark:hover:bg-gray-800 transition-colors"
+                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'}
+                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'}
+              >
                 <span className="text-black dark:text-white">Is pricing fixed? Any hidden fees?</span>
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
               </CollapsibleTrigger>
-              <CollapsibleContent className="p-4 bg-gray-50 dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
+              <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
                 Our pricing is transparent as water. What you see is what you invest, with no hidden costs or surprise
                 additions.
               </CollapsibleContent>
             </Collapsible>
 
             <Collapsible>
-              <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-gray-100 dark:bg-custom-card rounded-lg text-left hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+              <CollapsibleTrigger 
+                className="flex items-center justify-between w-full p-4 bg-white/[0.08] dark:bg-custom-card rounded-lg text-left dark:hover:bg-gray-800 transition-colors"
+                onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.12)'}
+                onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.08)'}
+              >
                 <span className="text-black dark:text-white">How long does it take to launch an MVP?</span>
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
               </CollapsibleTrigger>
-              <CollapsibleContent className="p-4 bg-gray-50 dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
+              <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
                 Like tending a garden, we work with patience and precision. Most MVPs bloom within 4-8 weeks, depending
                 on complexity.
               </CollapsibleContent>
