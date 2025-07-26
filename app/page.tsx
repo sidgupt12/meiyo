@@ -2,15 +2,32 @@
 
 import { Button } from "@/components/ui/button"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { Plus } from "lucide-react"
+import { Plus, VolumeX, Volume2, RotateCcw } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Preloader } from "@/components/preloader"
 
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState("")
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isMuted, setIsMuted] = useState(true)
+
+  const handleMuteToggle = () => {
+    if (videoRef.current) {
+      const newMutedState = !videoRef.current.muted
+      videoRef.current.muted = newMutedState
+      setIsMuted(newMutedState)
+    }
+  }
+
+  const handleRestart = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0
+      videoRef.current.play()
+    }
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -138,7 +155,7 @@ export default function HomePage() {
       <div className="max-w-6xl mx-auto pt-20">
 
         {/* Hero Section */}
-        <section className="px-8 py-16 lg:py-20">
+        <section className="px-8 pt-16 pb-8 lg:pt-20 lg:pb-10">
           <div className="text-left">
             <h1 className="text-[40px] font-bold leading-tight mb-2 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>
               meiyo<span className="inline-block w-2 h-2 bg-black dark:bg-white rounded-full ml-1"></span>
@@ -147,13 +164,43 @@ export default function HomePage() {
           </div>
 
           {/* Large content area */}
-          <div className="mt-16">
-            <div className="w-full h-80 bg-gray-100 dark:bg-white/[0.08] rounded-lg transition-colors"></div>
+          <div className="mt-16 rounded-lg overflow-hidden relative">
+            <div className="w-full aspect-video">
+              <video
+                ref={videoRef}
+                src="https://video-worker.sidgupt12.workers.dev/testvideo.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div className="absolute bottom-4 right-4 flex gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={handleMuteToggle}
+                className="bg-white/20 dark:bg-black/20 backdrop-blur-sm border-white/30 dark:border-black/30 hover:bg-white/30 dark:hover:bg-black/30 rounded-full"
+              >
+                {isMuted ? <VolumeX className="h-5 w-5 text-white" /> : <Volume2 className="h-5 w-5 text-white" />}
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={handleRestart}
+                className="bg-white/20 dark:bg-black/20 backdrop-blur-sm border-white/30 dark:border-black/30 hover:bg-white/30 dark:hover:bg-black/30 rounded-full"
+              >
+                <RotateCcw className="h-5 w-5 text-white" />
+              </Button>
+            </div>
           </div>
         </section>
 
         {/* What Meiyo Means Section */}
-        <section id="platform" className="px-8 py-16 text-left">
+        <section id="platform" className="px-8 py-8 text-left">
           <h2 className="text-xl font-semibold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '600'}}>What 'meiyo' means to us</h2>
           <div className="space-y-6 text-gray-700 dark:text-custom-gray leading-relaxed max-w-2xl transition-colors">
             <p>
@@ -166,7 +213,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <h2 className="text-xl font-semibold mb-8 mt-16 text-black dark:text-white transition-colors" style={{fontWeight: '600'}}>What we do</h2>
+          <h2 className="text-xl font-semibold mb-8 mt-12 text-black dark:text-white transition-colors" style={{fontWeight: '600'}}>What we do</h2>
           <div className="space-y-6 text-gray-700 dark:text-custom-gray leading-relaxed max-w-2xl transition-colors">
             <p>
               Like a gardener tending the first bud of spring, we help visionaries gently shape their ideas into living
@@ -180,7 +227,7 @@ export default function HomePage() {
         </section>
 
         {/* Personal Works Section */}
-        <section id="works" className="px-8 py-16 text-left">
+        <section id="works" className="px-8 py-8 text-left">
           <h2 className="text-xl font-semibold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '600'}}>Personal Works</h2>
           <p className="text-gray-700 dark:text-custom-gray leading-relaxed mb-12 max-w-2xl transition-colors">
             A gallery of projects crafted by our own team — click to explore live demonstrations of concept sites
@@ -190,10 +237,37 @@ export default function HomePage() {
           {/* Project Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div
+              <Link
                 key={i}
-                className="aspect-video bg-gray-100 dark:bg-white/[0.08] rounded-lg hover:bg-gray-200 dark:hover:bg-white/[0.12] transition-colors cursor-pointer"
-              ></div>
+                href="https://forgetai.siddhant.cc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative block aspect-video overflow-hidden rounded-lg"
+              >
+                <Image
+                  src="/photo.png"
+                  alt={`Project ${i + 1}`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <svg
+                    className="w-10 h-10 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    ></path>
+                  </svg>
+                </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -276,8 +350,14 @@ export default function HomePage() {
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="px-8 py-16">
-          <div className="space-y-4 max-w-4xl mx-auto">
+        <section id="faq" className="px-8 py-20 text-center">
+          <h2 className="text-[40px] font-bold leading-tight mb-2 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>
+            Frequently Asked Questions
+          </h2>
+          <p className="text-[38px] font-bold leading-tight mb-16 text-gray-600 dark:text-custom-gray transition-colors" style={{fontWeight: '700'}}>
+            Answers to common questions and concerns.
+          </p>
+          <div className="space-y-4 max-w-4xl mx-auto text-left">
             <Collapsible>
               <CollapsibleTrigger 
                 className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
