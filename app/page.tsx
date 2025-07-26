@@ -39,28 +39,28 @@ export default function HomePage() {
     <>
       <Preloader />
       
-      {/* Fixed Theme Toggle - Top Right */}
-      <div className="fixed top-6 right-6 z-50">
-        <div className="scale-125">
-          <ThemeToggle />
-        </div>
-      </div>
-      
       <div className="min-h-screen bg-white dark:bg-black transition-colors">
       {/* Fixed Floating Header */}
-      <header className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 flex items-center justify-between px-8 py-2 backdrop-blur-xl bg-white/60 dark:bg-black/40 rounded-full border border-gray-200/50 dark:border-gray-600/70 shadow-lg dark:shadow-gray-700/50 w-auto max-w-6xl">
-        <div className="flex items-center mr-4">
+      <header className="fixed top-4 inset-x-0 mx-auto flex items-center justify-between w-full max-w-[calc(100vw-2rem)] md:max-w-3xl px-1 sm:px-2 md:px-4 py-1 sm:py-2 backdrop-blur-xl bg-white/60 dark:bg-black/40 rounded-full border border-gray-200/50 dark:border-gray-600/70 shadow-lg dark:shadow-gray-700/50 relative">
+        {/* Left: Logo */}
+        <div className="flex items-center mr-1 sm:mr-2 md:mr-4">
           <Image
             src="/logo.png"
             alt="Meiyo Logo"
-            width={32}
-            height={32}
-            className="object-contain"
+            width={40}
+            height={40}
+            className="object-contain w-8 h-8"
             priority
           />
         </div>
 
-        <nav className="hidden md:flex items-center gap-4 mx-3">
+        {/* Center: Absolutely centered theme toggle on small screens */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 block md:hidden">
+          <ThemeToggle />
+        </div>
+
+        {/* Center: Navigation (hidden on mobile) */}
+        <nav className="hidden md:flex items-center gap-2 md:gap-4 mx-1 sm:mx-2 md:mx-3 flex-1 justify-center">
           <Link 
             href="#platform" 
             className={`transition-colors text-xs px-3 py-1 rounded-full ${
@@ -113,7 +113,11 @@ export default function HomePage() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-2 ml-4">
+        {/* Right: Theme toggle (md only) and Book a call button (always) */}
+        <div className="flex items-center gap-2 ml-1 sm:ml-2 md:ml-4">
+          <span className="hidden md:inline lg:hidden">
+            <ThemeToggle />
+          </span>
           <Button variant="outline" className="bg-black dark:bg-white text-white dark:text-black border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-200 rounded-full px-3 py-1 text-xs flex items-center gap-1">
             Book a call
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,6 +126,13 @@ export default function HomePage() {
           </Button>
         </div>
       </header>
+
+      {/* Fixed Theme Toggle - Top Right (only on lg and above) */}
+      <div className="fixed top-6 right-6 z-50 hidden lg:block">
+        <div className="scale-125">
+          <ThemeToggle />
+        </div>
+      </div>
 
       {/* Centered Container for entire website */}
       <div className="max-w-6xl mx-auto pt-20">
