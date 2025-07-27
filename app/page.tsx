@@ -8,11 +8,43 @@ import Image from "next/image"
 import { useEffect, useState, useRef } from "react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Preloader } from "@/components/preloader"
+import { Reviews } from "@/components/reviews"
+import { motion } from "framer-motion"
 
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState("")
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isMuted, setIsMuted] = useState(true)
+
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  }
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const scaleIn = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { duration: 0.5 }
+    }
+  }
 
   const handleMuteToggle = () => {
     if (videoRef.current) {
@@ -155,16 +187,35 @@ export default function HomePage() {
       <div className="max-w-6xl mx-auto pt-20">
 
         {/* Hero Section */}
-        <section className="px-8 pt-16 pb-8 lg:pt-20 lg:pb-10">
-          <div className="text-left">
-            <h1 className="text-[40px] font-bold leading-tight mb-2 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>
+        <motion.section 
+          className="px-8 pt-16 pb-8 lg:pt-20 lg:pb-10"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={staggerContainer}
+        >
+          <motion.div className="text-left" variants={fadeInUp}>
+            <motion.h1 
+              className="text-[40px] font-bold leading-tight mb-2 text-black dark:text-white transition-colors" 
+              style={{fontWeight: '700'}}
+              variants={fadeInUp}
+            >
               meiyo<span className="inline-block w-2 h-2 bg-black dark:bg-white rounded-full ml-1"></span>
-            </h1>
-            <p className="text-[38px] font-bold leading-tight text-gray-600 dark:text-custom-gray transition-colors" style={{fontWeight: '700'}}>Honor. Prestige. Your ideas respected.</p>
-          </div>
+            </motion.h1>
+            <motion.p 
+              className="text-[38px] font-bold leading-tight text-gray-600 dark:text-custom-gray transition-colors" 
+              style={{fontWeight: '700'}}
+              variants={fadeInUp}
+            >
+              Honor. Prestige. Your ideas respected.
+            </motion.p>
+          </motion.div>
 
           {/* Large content area */}
-          <div className="mt-16 rounded-lg overflow-hidden relative">
+          <motion.div 
+            className="mt-16 rounded-lg overflow-hidden relative"
+            variants={scaleIn}
+          >
             <div className="w-full aspect-video">
               <video
                 ref={videoRef}
@@ -196,90 +247,163 @@ export default function HomePage() {
                 <RotateCcw className="h-5 w-5 text-white" />
               </Button>
             </div>
-          </div>
-        </section>
+          </motion.div>
+        </motion.section>
 
         {/* What Meiyo Means Section */}
-        <section id="platform" className="px-8 py-8 text-left">
-          <h2 className="text-xl font-semibold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '600'}}>What 'meiyo' means to us</h2>
-          <div className="space-y-6 text-gray-700 dark:text-custom-gray leading-relaxed max-w-2xl transition-colors">
-            <p>
+        <motion.section 
+          id="platform" 
+          className="px-8 py-8 text-left"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={staggerContainer}
+        >
+          <motion.h2 
+            className="text-xl font-semibold mb-8 text-black dark:text-white transition-colors" 
+            style={{fontWeight: '600'}}
+            variants={fadeInUp}
+          >
+            What 'meiyo' means to us
+          </motion.h2>
+          <motion.div 
+            className="space-y-6 text-gray-700 dark:text-custom-gray leading-relaxed max-w-2xl transition-colors"
+            variants={staggerContainer}
+          >
+            <motion.p variants={fadeInUp}>
               'Meiyo' is the Japanese word for honor, prestige, and deep respect — values that shape how we treat each
               client's vision. We believe every MVP begins with recognition and mindful craftsmanship.
-            </p>
-            <p>
+            </motion.p>
+            <motion.p variants={fadeInUp}>
               We honor your ideas by offering gentle guidance, clear fixed pricing, and a process built on trust. Here,
               you're not just a client — your story is the heart of what we build together.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
-          <h2 className="text-xl font-semibold mb-8 mt-12 text-black dark:text-white transition-colors" style={{fontWeight: '600'}}>What we do</h2>
-          <div className="space-y-6 text-gray-700 dark:text-custom-gray leading-relaxed max-w-2xl transition-colors">
-            <p>
+          <motion.h2 
+            className="text-xl font-semibold mb-8 mt-12 text-black dark:text-white transition-colors" 
+            style={{fontWeight: '600'}}
+            variants={fadeInUp}
+          >
+            What we do
+          </motion.h2>
+          <motion.div 
+            className="space-y-6 text-gray-700 dark:text-custom-gray leading-relaxed max-w-2xl transition-colors"
+            variants={staggerContainer}
+          >
+            <motion.p variants={fadeInUp}>
               Like a gardener tending the first bud of spring, we help visionaries gently shape their ideas into living
               products. Your MVP is approached with patience, honor, and a respect rooted in Japanese artistry.
-            </p>
-            <p>
+            </motion.p>
+            <motion.p variants={fadeInUp}>
               Trust our hands to cultivate what you imagine — each step guided by care and stillness, as a stone garden
               reveals balance. We bring clarity and fixed pricing, turning inspiration into form with quiet precision.
-            </p>
-          </div>
-        </section>
+            </motion.p>
+          </motion.div>
+        </motion.section>
 
         {/* Personal Works Section */}
-        <section id="works" className="px-8 py-8 text-left">
-          <h2 className="text-xl font-semibold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '600'}}>Personal Works</h2>
-          <p className="text-gray-700 dark:text-custom-gray leading-relaxed mb-12 max-w-2xl transition-colors">
+        <motion.section 
+          id="works" 
+          className="px-8 py-8 text-left"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={staggerContainer}
+        >
+          <motion.h2 
+            className="text-xl font-semibold mb-8 text-black dark:text-white transition-colors" 
+            style={{fontWeight: '600'}}
+            variants={fadeInUp}
+          >
+            Personal Works
+          </motion.h2>
+          <motion.p 
+            className="text-gray-700 dark:text-custom-gray leading-relaxed mb-12 max-w-2xl transition-colors"
+            variants={fadeInUp}
+          >
             A gallery of projects crafted by our own team — click to explore live demonstrations of concept sites
             reflecting meiyo's blend of simplicity and refinement.
-          </p>
+          </motion.p>
 
           {/* Project Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={staggerContainer}
+          >
             {Array.from({ length: 6 }).map((_, i) => (
-              <Link
-                key={i}
-                href="https://forgetai.siddhant.cc"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative block aspect-video overflow-hidden rounded-lg"
-              >
-                <Image
-                  src="/photo.png"
-                  alt={`Project ${i + 1}`}
-                  layout="fill"
-                  objectFit="cover"
-                  className="transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <svg
-                    className="w-10 h-10 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    ></path>
-                  </svg>
-                </div>
-              </Link>
+              <motion.div key={i} variants={scaleIn}>
+                <Link
+                  href="https://forgetai.siddhant.cc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative block aspect-video overflow-hidden rounded-lg"
+                >
+                  <Image
+                    src="/photo.png"
+                    alt={`Project ${i + 1}`}
+                    layout="fill"
+                    objectFit="cover"
+                    className="transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <svg
+                      className="w-10 h-10 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      ></path>
+                    </svg>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
-          </div>
-        </section>
+          </motion.div>
+        </motion.section>
+        <Reviews />
+
 
         {/* Pricing Section */}
-        <section id="pricing" className="px-8 py-20 text-center">
-          <h2 className="text-[40px] font-bold leading-tight mb-2 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>Pricing</h2>
-          <p className="text-[38px] font-bold leading-tight mb-16 text-gray-600 dark:text-custom-gray transition-colors" style={{fontWeight: '700'}}>Transparent as water, serene as stone.</p>
+        <motion.section 
+          id="pricing" 
+          className="px-8 py-20 text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer}
+        >
+          <motion.h2 
+            className="text-[40px] font-bold leading-tight mb-2 text-black dark:text-white transition-colors" 
+            style={{fontWeight: '700'}}
+            variants={fadeInUp}
+          >
+            Pricing
+          </motion.h2>
+          <motion.p 
+            className="text-[38px] font-bold leading-tight mb-16 text-gray-600 dark:text-custom-gray transition-colors" 
+            style={{fontWeight: '700'}}
+            variants={fadeInUp}
+          >
+            Transparent as water, serene as stone.
+          </motion.p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+            variants={staggerContainer}
+          >
             {/* Single Blossom */}
-            <div className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors">
+            <motion.div 
+              className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors"
+              variants={scaleIn}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            >
               <h3 className="text-gray-600 dark:text-custom-gray mb-6 text-lg font-medium transition-colors">Single Blossom</h3>
               <div className="text-5xl font-bold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>$4,500</div>
               <ul className="space-y-4 mb-12 text-left">
@@ -299,10 +423,14 @@ export default function HomePage() {
               <Button className="w-full bg-black dark:bg-white/[0.08] text-white dark:text-white hover:bg-gray-800 dark:hover:bg-white/[0.12] border-0 rounded-full py-4 font-medium text-base transition-colors">
                 Begin the journey
               </Button>
-            </div>
+            </motion.div>
 
             {/* Twin Garden */}
-            <div className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors">
+            <motion.div 
+              className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors"
+              variants={scaleIn}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            >
               <h3 className="text-gray-600 dark:text-custom-gray mb-6 text-lg font-medium transition-colors">Twin Garden</h3>
               <div className="text-5xl font-bold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>$7,500</div>
               <ul className="space-y-4 mb-12 text-left">
@@ -322,10 +450,15 @@ export default function HomePage() {
               <Button className="w-full bg-black dark:bg-custom-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 border-0 rounded-full py-4 font-medium text-base transition-colors">
                 Embrace harmony
               </Button>
-            </div>
+            </motion.div>
+
 
             {/* Evergreen Care */}
-            <div className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors">
+            <motion.div 
+              className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors"
+              variants={scaleIn}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            >
               <h3 className="text-gray-600 dark:text-custom-gray mb-6 text-lg font-medium transition-colors">Evergreen Care</h3>
               <div className="text-5xl font-bold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>$950</div>
               <ul className="space-y-4 mb-12 text-left">
@@ -345,95 +478,138 @@ export default function HomePage() {
               <Button className="w-full bg-black dark:bg-white/[0.08] text-white dark:text-white hover:bg-gray-800 dark:hover:bg-white/[0.12] border-0 rounded-full py-4 font-medium text-base mt-[1.625rem] transition-colors">
                 Sustain and grow
               </Button>
-            </div>
-          </div>
-        </section>
+            </motion.div>
+          </motion.div>
+        </motion.section>
 
+        {/* Reviews Section */}
+        
         {/* FAQ Section */}
-        <section id="faq" className="px-8 py-20 text-center">
-          <h2 className="text-[40px] font-bold leading-tight mb-2 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>
+        <motion.section 
+          id="faq" 
+          className="px-8 py-20 text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer}
+        >
+          <motion.h2 
+            className="text-[40px] font-bold leading-tight mb-2 text-black dark:text-white transition-colors" 
+            style={{fontWeight: '700'}}
+            variants={fadeInUp}
+          >
             Frequently Asked Questions
-          </h2>
-          <p className="text-[38px] font-bold leading-tight mb-16 text-gray-600 dark:text-custom-gray transition-colors" style={{fontWeight: '700'}}>
+          </motion.h2>
+          <motion.p 
+            className="text-[38px] font-bold leading-tight mb-16 text-gray-600 dark:text-custom-gray transition-colors" 
+            style={{fontWeight: '700'}}
+            variants={fadeInUp}
+          >
             Answers to common questions and concerns.
-          </p>
-          <div className="space-y-4 max-w-4xl mx-auto text-left">
-            <Collapsible>
-              <CollapsibleTrigger 
-                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
-                onClick={e => e.currentTarget.blur()}
-              >
-                <span className="text-black dark:text-white">How do we begin working together?</span>
-                <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
-              </CollapsibleTrigger>
-              <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
-                We start with a gentle conversation about your vision, followed by a clear proposal that honors your
-                ideas and timeline.
-              </CollapsibleContent>
-            </Collapsible>
+          </motion.p>
+          <motion.div 
+            className="space-y-4 max-w-4xl mx-auto text-left"
+            variants={staggerContainer}
+          >
+            <motion.div variants={fadeInUp}>
+              <Collapsible>
+                <CollapsibleTrigger 
+                  className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                  onClick={e => e.currentTarget.blur()}
+                >
+                  <span className="text-black dark:text-white">How do we begin working together?</span>
+                  <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
+                  We start with a gentle conversation about your vision, followed by a clear proposal that honors your
+                  ideas and timeline.
+                </CollapsibleContent>
+              </Collapsible>
+            </motion.div>
 
-            <Collapsible>
-              <CollapsibleTrigger 
-                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
-                onClick={e => e.currentTarget.blur()}
-              >
-                <span className="text-black dark:text-white">Is pricing fixed? Any hidden fees?</span>
-                <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
-              </CollapsibleTrigger>
-              <CollapsibleContent className="p-4 text-gray-600 dark:text-custom-gray transition-colors">
-                Our pricing is transparent as water. What you see is what you invest, with no hidden costs or surprise
-                additions.
-              </CollapsibleContent>
-            </Collapsible>
+            <motion.div variants={fadeInUp}>
+              <Collapsible>
+                <CollapsibleTrigger 
+                  className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                  onClick={e => e.currentTarget.blur()}
+                >
+                  <span className="text-black dark:text-white">Is pricing fixed? Any hidden fees?</span>
+                  <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="p-4 text-gray-600 dark:text-custom-gray transition-colors">
+                  Our pricing is transparent as water. What you see is what you invest, with no hidden costs or surprise
+                  additions.
+                </CollapsibleContent>
+              </Collapsible>
+            </motion.div>
 
-            <Collapsible>
-              <CollapsibleTrigger 
-                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
-                onClick={e => e.currentTarget.blur()}
-              >
-                <span className="text-black dark:text-white">How long does it take to launch an MVP?</span>
-                <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
-              </CollapsibleTrigger>
-              <CollapsibleContent className="p-4 text-gray-600 dark:text-custom-gray transition-colors">
-                Like tending a garden, we work with patience and precision. Most MVPs bloom within 4-8 weeks, depending
-                on complexity.
-              </CollapsibleContent>
-            </Collapsible>
+            <motion.div variants={fadeInUp}>
+              <Collapsible>
+                <CollapsibleTrigger 
+                  className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                  onClick={e => e.currentTarget.blur()}
+                >
+                  <span className="text-black dark:text-white">How long does it take to launch an MVP?</span>
+                  <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="p-4 text-gray-600 dark:text-custom-gray transition-colors">
+                  Like tending a garden, we work with patience and precision. Most MVPs bloom within 4-8 weeks, depending
+                  on complexity.
+                </CollapsibleContent>
+              </Collapsible>
+            </motion.div>
 
-            <Collapsible>
-              <CollapsibleTrigger 
-                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
-                onClick={e => e.currentTarget.blur()}
-              >
-                <span className="text-black dark:text-white">Is pricing fixed? Any hidden fees?</span>
-                <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
-              </CollapsibleTrigger>
-              <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
-                Our pricing is transparent as water. What you see is what you invest, with no hidden costs or surprise
-                additions.
-              </CollapsibleContent>
-            </Collapsible>
+            <motion.div variants={fadeInUp}>
+              <Collapsible>
+                <CollapsibleTrigger 
+                  className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                  onClick={e => e.currentTarget.blur()}
+                >
+                  <span className="text-black dark:text-white">Is pricing fixed? Any hidden fees?</span>
+                  <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
+                  Our pricing is transparent as water. What you see is what you invest, with no hidden costs or surprise
+                  additions.
+                </CollapsibleContent>
+              </Collapsible>
+            </motion.div>
 
-            <Collapsible>
-              <CollapsibleTrigger 
-                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
-                onClick={e => e.currentTarget.blur()}
-              >
-                <span className="text-black dark:text-white">How long does it take to launch an MVP?</span>
-                <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
-              </CollapsibleTrigger>
-              <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
-                Like tending a garden, we work with patience and precision. Most MVPs bloom within 4-8 weeks, depending
-                on complexity.
-              </CollapsibleContent>
-            </Collapsible>
-          </div>
-        </section>
+            <motion.div variants={fadeInUp}>
+              <Collapsible>
+                <CollapsibleTrigger 
+                  className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                  onClick={e => e.currentTarget.blur()}
+                >
+                  <span className="text-black dark:text-white">How long does it take to launch an MVP?</span>
+                  <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
+                  Like tending a garden, we work with patience and precision. Most MVPs bloom within 4-8 weeks, depending
+                  on complexity.
+                </CollapsibleContent>
+              </Collapsible>
+            </motion.div>
+          </motion.div>
+        </motion.section>
 
         {/* Footer */}
-        <footer id="contact" className="px-8 py-16 border-t border-gray-200 dark:border-gray-800 transition-colors">
-          <div className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-12">
-            <div className="flex items-center justify-center lg:justify-start">
+        <motion.footer 
+          id="contact" 
+          className="px-8 py-16 border-t border-gray-200 dark:border-gray-800 transition-colors"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={staggerContainer}
+        >
+          <motion.div 
+            className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-12"
+            variants={staggerContainer}
+          >
+            <motion.div 
+              className="flex items-center justify-center lg:justify-start"
+              variants={fadeInUp}
+            >
               <Image
                 src="/logo.png"
                 alt="Meiyo Logo"
@@ -441,10 +617,13 @@ export default function HomePage() {
                 height={48}
                 className="object-contain"
               />
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-16">
-              <div>
+            <motion.div 
+              className="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-16"
+              variants={staggerContainer}
+            >
+              <motion.div variants={fadeInUp}>
                 <h4 className="font-medium mb-4 text-black dark:text-white transition-colors">Platform</h4>
                 <ul className="space-y-2 text-gray-600 dark:text-gray-400 transition-colors">
                   <li>
@@ -463,9 +642,9 @@ export default function HomePage() {
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </motion.div>
 
-              <div>
+              <motion.div variants={fadeInUp}>
                 <h4 className="font-medium mb-4 text-black dark:text-white transition-colors">Guide</h4>
                 <ul className="space-y-2 text-gray-600 dark:text-gray-400 transition-colors">
                   <li>
@@ -484,9 +663,9 @@ export default function HomePage() {
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </motion.div>
 
-              <div className="col-span-2 sm:col-span-1">
+              <motion.div className="col-span-2 sm:col-span-1" variants={fadeInUp}>
                 <h4 className="font-medium mb-4 text-black dark:text-white transition-colors">Meiyo</h4>
                 <ul className="space-y-2 text-gray-600 dark:text-gray-400 transition-colors">
                   <li>
@@ -505,15 +684,18 @@ export default function HomePage() {
                     </Link>
                   </li>
                 </ul>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
 
-          <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400 text-sm transition-colors text-center lg:text-left">
+          <motion.div 
+            className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400 text-sm transition-colors text-center lg:text-left"
+            variants={fadeInUp}
+          >
             <p>© 2023–2025</p>
             <p>All Rights Reserved</p>
-          </div>
-        </footer>
+          </motion.div>
+        </motion.footer>
       </div>
     </div>
     </>
