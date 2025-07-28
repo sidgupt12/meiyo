@@ -10,7 +10,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Meiyo - Honor. Prestige. Your ideas respected.",
+  title: "Meiyo",
   description: "Japanese-inspired design agency focused on mindful craftsmanship and MVP development.",
     generator: 'v0.dev'
 }
