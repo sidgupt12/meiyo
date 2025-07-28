@@ -18,7 +18,16 @@ export function Preloader() {
   useEffect(() => {
     if (!mounted) return
 
-    // Smooth sequence: rotate once slowly -> fade logo -> open curtain
+    // Check if user came from internal navigation (like from philosophy page)
+    const cameFromInternal = window.history.length > 1 && document.referrer.includes(window.location.origin)
+    
+    if (cameFromInternal) {
+      // Skip preloader animation, hide immediately
+      setIsLoading(false)
+      return
+    }
+
+    // Smooth sequence: rotate once -> fade logo -> open curtain
     const fadeTimer = setTimeout(() => {
       setLogoFadeOut(true)
       // After fade completes, start curtain
@@ -29,7 +38,7 @@ export function Preloader() {
           setIsLoading(false)
         }, 1200)
       }, 600) // Wait for fade to complete
-    }, 4000) // One slow rotation (4s)
+    }, 2000) // One rotation (2s)
 
     return () => clearTimeout(fadeTimer)
   }, [mounted])
@@ -84,7 +93,7 @@ export function Preloader() {
           {/* Logo container - centered */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className={`relative ${logoFadeOut ? 'logo-fade' : ''}`}>
-              {/* Rotating logo with tire effect - rotates once slowly */}
+              {/* Rotating logo with tire effect - rotates once */}
               <div 
                 className="w-40 h-40 relative tire-spin-slow"
               >

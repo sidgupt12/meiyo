@@ -8,11 +8,19 @@ import Image from "next/image"
 import { useEffect, useState, useRef } from "react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Preloader } from "@/components/preloader"
+import Cal, { getCalApi } from "@calcom/embed-react"
 
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState("")
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isMuted, setIsMuted] = useState(true)
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   const handleMuteToggle = () => {
     if (videoRef.current) {
@@ -31,7 +39,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["platform", "works", "pricing", "faq", "contact"]
+      const sections = ["platform", "works", "pricing", "testimonials", "faq"]
       const scrollPosition = window.scrollY + 100 // Offset for header
 
       for (const section of sections) {
@@ -50,6 +58,13 @@ export default function HomePage() {
     handleScroll() // Check initial position
 
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({"namespace":"30min"});
+      cal("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+    })();
   }, [])
 
   return (
@@ -78,8 +93,8 @@ export default function HomePage() {
 
         {/* Center: Navigation (hidden on mobile) */}
         <nav className="hidden md:flex items-center gap-2 md:gap-4 mx-1 sm:mx-2 md:mx-3 flex-1 justify-center">
-          <Link 
-            href="#platform" 
+          <button 
+            onClick={() => scrollToSection('platform')}
             className={`transition-colors text-xs px-3 py-1 rounded-full ${
               activeSection === "platform" 
                 ? "text-black dark:text-white bg-gray-200 dark:bg-gray-800" 
@@ -87,9 +102,9 @@ export default function HomePage() {
             }`}
           >
             Platform
-          </Link>
-          <Link 
-            href="#works" 
+          </button>
+          <button 
+            onClick={() => scrollToSection('works')}
             className={`transition-colors text-xs px-3 py-1 rounded-full ${
               activeSection === "works" 
                 ? "text-black dark:text-white bg-gray-200 dark:bg-gray-800" 
@@ -97,9 +112,9 @@ export default function HomePage() {
             }`}
           >
             Works
-          </Link>
-          <Link 
-            href="#pricing" 
+          </button>
+          <button 
+            onClick={() => scrollToSection('pricing')}
             className={`transition-colors text-xs px-3 py-1 rounded-full ${
               activeSection === "pricing" 
                 ? "text-black dark:text-white bg-gray-200 dark:bg-gray-800" 
@@ -107,9 +122,19 @@ export default function HomePage() {
             }`}
           >
             Pricing
-          </Link>
-          <Link 
-            href="#faq" 
+          </button>
+          <button 
+            onClick={() => scrollToSection('testimonials')}
+            className={`transition-colors text-xs px-3 py-1 rounded-full ${
+              activeSection === "testimonials" 
+                ? "text-black dark:text-white bg-gray-200 dark:bg-gray-800" 
+                : "text-gray-700 dark:text-custom-gray hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
+            }`}
+          >
+            Testimonials
+          </button>
+          <button 
+            onClick={() => scrollToSection('faq')}
             className={`transition-colors text-xs px-3 py-1 rounded-full ${
               activeSection === "faq" 
                 ? "text-black dark:text-white bg-gray-200 dark:bg-gray-800" 
@@ -117,17 +142,7 @@ export default function HomePage() {
             }`}
           >
             FAQ
-          </Link>
-          <Link 
-            href="#contact" 
-            className={`transition-colors text-xs px-3 py-1 rounded-full ${
-              activeSection === "contact" 
-                ? "text-black dark:text-white bg-gray-200 dark:bg-gray-800" 
-                : "text-gray-700 dark:text-custom-gray hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
-            }`}
-          >
-            Contact
-          </Link>
+          </button>
         </nav>
 
         {/* Right: Theme toggle (md only) and Book a call button (always) */}
@@ -135,11 +150,12 @@ export default function HomePage() {
           <span className="hidden md:inline lg:hidden">
             <ThemeToggle />
           </span>
-          <Button variant="outline" className="bg-black dark:bg-white text-white dark:text-black border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-200 rounded-full px-3 py-1 text-xs flex items-center gap-1">
+          <Button 
+            onClick={() => scrollToSection('booking')}
+            variant="outline" 
+            className="bg-black dark:bg-white text-white dark:text-black border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-200 rounded-full px-3 py-1 text-xs"
+          >
             Book a call
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
           </Button>
         </div>
       </header>
@@ -160,7 +176,7 @@ export default function HomePage() {
             <h1 className="text-[40px] font-bold leading-tight mb-2 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>
               meiyo<span className="inline-block w-2 h-2 bg-black dark:bg-white rounded-full ml-1"></span>
             </h1>
-            <p className="text-[38px] font-bold leading-tight text-gray-600 dark:text-custom-gray transition-colors" style={{fontWeight: '700'}}>Honor. Prestige. Your ideas respected.</p>
+            <p className="text-[38px] font-bold leading-tight text-gray-600 dark:text-custom-gray transition-colors" style={{fontWeight: '700'}}>Your vision. Our craft. Delivered with care.</p>
           </div>
 
           {/* Large content area */}
@@ -204,12 +220,12 @@ export default function HomePage() {
           <h2 className="text-xl font-semibold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '600'}}>What 'meiyo' means to us</h2>
           <div className="space-y-6 text-gray-700 dark:text-custom-gray leading-relaxed max-w-2xl transition-colors">
             <p>
-              'Meiyo' is the Japanese word for honor, prestige, and deep respect — values that shape how we treat each
+              'Meiyo' is the Japanese word for honor, prestige, and deep respect values that shape how we treat each
               client's vision. We believe every MVP begins with recognition and mindful craftsmanship.
             </p>
             <p>
               We honor your ideas by offering gentle guidance, clear fixed pricing, and a process built on trust. Here,
-              you're not just a client — your story is the heart of what we build together.
+              you're not just a client your story is the heart of what we build together.
             </p>
           </div>
 
@@ -220,7 +236,7 @@ export default function HomePage() {
               products. Your MVP is approached with patience, honor, and a respect rooted in Japanese artistry.
             </p>
             <p>
-              Trust our hands to cultivate what you imagine — each step guided by care and stillness, as a stone garden
+              Trust our hands to cultivate what you imagine each step guided by care and stillness, as a stone garden
               reveals balance. We bring clarity and fixed pricing, turning inspiration into form with quiet precision.
             </p>
           </div>
@@ -230,7 +246,7 @@ export default function HomePage() {
         <section id="works" className="px-8 py-8 text-left">
           <h2 className="text-xl font-semibold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '600'}}>Personal Works</h2>
           <p className="text-gray-700 dark:text-custom-gray leading-relaxed mb-12 max-w-2xl transition-colors">
-            A gallery of projects crafted by our own team — click to explore live demonstrations of concept sites
+            A gallery of projects crafted by our own team click to explore live demonstrations of concept sites
             reflecting meiyo's blend of simplicity and refinement.
           </p>
 
@@ -343,7 +359,7 @@ export default function HomePage() {
             {/* Single Blossom */}
             <div className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors">
               <h3 className="text-gray-600 dark:text-custom-gray mb-6 text-lg font-medium transition-colors">Single Blossom</h3>
-              <div className="text-5xl font-bold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>$4,500</div>
+              <div className="text-5xl font-bold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>$999</div>
               <ul className="space-y-4 mb-12 text-left">
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1 text-lg">✓</span>
@@ -366,7 +382,7 @@ export default function HomePage() {
             {/* Twin Garden */}
             <div className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors">
               <h3 className="text-gray-600 dark:text-custom-gray mb-6 text-lg font-medium transition-colors">Twin Garden</h3>
-              <div className="text-5xl font-bold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>$7,500</div>
+              <div className="text-5xl font-bold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>$1,799</div>
               <ul className="space-y-4 mb-12 text-left">
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1 text-lg">✓</span>
@@ -389,7 +405,7 @@ export default function HomePage() {
             {/* Evergreen Care */}
             <div className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors">
               <h3 className="text-gray-600 dark:text-custom-gray mb-6 text-lg font-medium transition-colors">Evergreen Care</h3>
-              <div className="text-5xl font-bold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>$950</div>
+              <div className="text-5xl font-bold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>$199</div>
               <ul className="space-y-4 mb-12 text-left">
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1 text-lg">✓</span>
@@ -407,6 +423,36 @@ export default function HomePage() {
               <Button className="w-full bg-black dark:bg-white/[0.08] text-white dark:text-white hover:bg-gray-800 dark:hover:bg-white/[0.12] border-0 rounded-full py-4 font-medium text-base mt-[1.625rem] transition-colors">
                 Sustain and grow
               </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section id="testimonials" className="px-8 py-20 text-center">
+          <h2 className="text-[40px] font-bold leading-tight mb-2 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>What people say</h2>
+          <p className="text-[38px] font-bold leading-tight mb-16 text-gray-600 dark:text-custom-gray transition-colors" style={{fontWeight: '700'}}>Trusted by users</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* YSYW Testimonial */}
+            <div className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors">
+              <blockquote className="text-gray-700 dark:text-custom-gray leading-relaxed mb-8 transition-colors">
+                "Meiyo brought our vision of connecting football athletes, coaches, and sponsors to life. They understood that YSYW was more than a platform it's a community where passion meets opportunity, bridging the gap between athletes and supporters worldwide."
+              </blockquote>
+              <div>
+                <h3 className="font-semibold text-black dark:text-white transition-colors">Addy Ekhaese</h3>
+                <p className="text-gray-600 dark:text-custom-gray text-sm transition-colors">Your Sports Your World</p>
+              </div>
+            </div>
+
+            {/* Quick Commerce Startup Testimonial */}
+            <div className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors">
+              <blockquote className="text-gray-700 dark:text-custom-gray leading-relaxed mb-8 transition-colors">
+                "We needed a complete admin system and mobile app with enterprise-grade functionality, and we needed it fast. Meiyo delivered beyond expectations in just one month."
+              </blockquote>
+              <div>
+                <h3 className="font-semibold text-black dark:text-white transition-colors">Gauri</h3>
+                <p className="text-gray-600 dark:text-custom-gray text-sm transition-colors">Quick Commerce Startup</p>
+              </div>
             </div>
           </div>
         </section>
@@ -429,36 +475,7 @@ export default function HomePage() {
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
               </CollapsibleTrigger>
               <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
-                We start with a gentle conversation about your vision, followed by a clear proposal that honors your
-                ideas and timeline.
-              </CollapsibleContent>
-            </Collapsible>
-
-            <Collapsible>
-              <CollapsibleTrigger 
-                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
-                onClick={e => e.currentTarget.blur()}
-              >
-                <span className="text-black dark:text-white">Is pricing fixed? Any hidden fees?</span>
-                <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
-              </CollapsibleTrigger>
-              <CollapsibleContent className="p-4 text-gray-600 dark:text-custom-gray transition-colors">
-                Our pricing is transparent as water. What you see is what you invest, with no hidden costs or surprise
-                additions.
-              </CollapsibleContent>
-            </Collapsible>
-
-            <Collapsible>
-              <CollapsibleTrigger 
-                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
-                onClick={e => e.currentTarget.blur()}
-              >
-                <span className="text-black dark:text-white">How long does it take to launch an MVP?</span>
-                <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
-              </CollapsibleTrigger>
-              <CollapsibleContent className="p-4 text-gray-600 dark:text-custom-gray transition-colors">
-                Like tending a garden, we work with patience and precision. Most MVPs bloom within 4-8 weeks, depending
-                on complexity.
+                We start with a gentle conversation about your vision, followed by a clear proposal that honors your ideas and timeline. Book a call with us to discuss your project requirements and goals.
               </CollapsibleContent>
             </Collapsible>
 
@@ -471,8 +488,7 @@ export default function HomePage() {
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
               </CollapsibleTrigger>
               <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
-                Our pricing is transparent as water. What you see is what you invest, with no hidden costs or surprise
-                additions.
+                Our pricing is transparent as water. What you see is what you invest, with no hidden costs or surprise additions. All pricing includes development, testing, deployment, and initial support.
               </CollapsibleContent>
             </Collapsible>
 
@@ -485,10 +501,78 @@ export default function HomePage() {
                 <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
               </CollapsibleTrigger>
               <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
-                Like tending a garden, we work with patience and precision. Most MVPs bloom within 4-8 weeks, depending
-                on complexity.
+                Like tending a garden, we work with patience and precision. Most MVPs bloom within 4-8 weeks, depending on complexity. We'll provide a detailed timeline during our initial consultation.
               </CollapsibleContent>
             </Collapsible>
+
+            <Collapsible>
+              <CollapsibleTrigger 
+                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                onClick={e => e.currentTarget.blur()}
+              >
+                <span className="text-black dark:text-white">What technologies do you use?</span>
+                <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
+                We use modern, scalable technologies including React, Next.js, Node.js, and React Native for mobile apps. We choose the best tech stack based on your specific needs and long-term goals.
+              </CollapsibleContent>
+            </Collapsible>
+
+            <Collapsible>
+              <CollapsibleTrigger 
+                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                onClick={e => e.currentTarget.blur()}
+              >
+                <span className="text-black dark:text-white">Do you provide ongoing support after launch?</span>
+                <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
+                Yes, all packages include initial support (30-60 days depending on your plan). For ongoing maintenance, updates, and new features, consider our Evergreen Care package at $199/month.
+              </CollapsibleContent>
+            </Collapsible>
+
+            <Collapsible>
+              <CollapsibleTrigger 
+                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                onClick={e => e.currentTarget.blur()}
+              >
+                <span className="text-black dark:text-white">Can you help with app store submissions?</span>
+                <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
+                Absolutely. For mobile applications, we handle the entire deployment process including App Store and Google Play Store submissions, ensuring your app meets all guidelines and requirements.
+              </CollapsibleContent>
+            </Collapsible>
+
+            <Collapsible>
+              <CollapsibleTrigger 
+                className="transition-colors rounded-lg p-4 w-full flex items-center justify-between text-left bg-transparent data-[state=open]:bg-gray-200 dark:data-[state=open]:bg-custom-card focus:bg-transparent active:bg-transparent"
+                onClick={e => e.currentTarget.blur()}
+              >
+                <span className="text-black dark:text-white">What if I need changes during development?</span>
+                <Plus className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="p-4 bg-white/[0.06] dark:bg-custom-card text-gray-600 dark:text-custom-gray transition-colors rounded-b-lg border-t border-gray-200 dark:border-gray-700">
+                We understand that ideas evolve. Minor adjustments are included in our process. For significant scope changes, we'll discuss them transparently and adjust the timeline and pricing if needed.
+              </CollapsibleContent>
+            </Collapsible>
+          </div>
+        </section>
+
+        {/* Booking Section */}
+        <section id="booking" className="px-8 py-20 text-center">
+          <h2 className="text-[40px] font-bold leading-tight mb-2 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>Book a call</h2>
+          <p className="text-[38px] font-bold leading-tight mb-16 text-gray-600 dark:text-custom-gray transition-colors" style={{fontWeight: '700'}}>Let's discuss your vision together.</p>
+          
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white dark:bg-custom-card rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transition-colors">
+              <Cal 
+                namespace="30min"
+                calLink="s0lomate/30min"
+                style={{width:"100%",height:"600px",overflow:"scroll"}}
+                config={{"layout":"month_view"}}
+              />
+            </div>
           </div>
         </section>
 
@@ -505,65 +589,24 @@ export default function HomePage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-16">
               <div>
-                <h4 className="font-medium mb-4 text-black dark:text-white transition-colors">Platform</h4>
+                <h4 className="font-medium mb-4 text-black dark:text-white transition-colors">Company</h4>
                 <ul className="space-y-2 text-gray-600 dark:text-gray-400 transition-colors">
                   <li>
-                    <Link href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                      Overview
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                      Demo
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                      Pricing
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="font-medium mb-4 text-black dark:text-white transition-colors">Guide</h4>
-                <ul className="space-y-2 text-gray-600 dark:text-gray-400 transition-colors">
-                  <li>
-                    <Link href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                      How It Works
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                      FAQs
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                      Support
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="col-span-2 sm:col-span-1">
-                <h4 className="font-medium mb-4 text-black dark:text-white transition-colors">Meiyo</h4>
-                <ul className="space-y-2 text-gray-600 dark:text-gray-400 transition-colors">
-                  <li>
-                    <Link href="#" className="hover:text-black dark:hover:text-white transition-colors">
+                    <Link href="/philosophy" className="hover:text-black dark:hover:text-white transition-colors">
                       Our Philosophy
                     </Link>
                   </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-medium mb-4 text-black dark:text-white transition-colors">Contact</h4>
+                <ul className="space-y-2 text-gray-600 dark:text-gray-400 transition-colors">
                   <li>
-                    <Link href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                      Team
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                      Contact
+                    <Link href="mailto:meiyo@gmail.com" className="hover:text-black dark:hover:text-white transition-colors">
+                      meiyo@gmail.com
                     </Link>
                   </li>
                 </ul>
@@ -572,8 +615,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400 text-sm transition-colors text-center lg:text-left">
-            <p>© 2023–2025</p>
-            <p>All Rights Reserved</p>
+            <p>© 2025 Meiyo. All Rights Reserved.</p>
           </div>
         </footer>
       </div>
