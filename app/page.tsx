@@ -236,38 +236,100 @@ export default function HomePage() {
 
           {/* Project Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <Link
-                key={i}
-                href="https://forgetai.siddhant.cc"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative block aspect-video overflow-hidden rounded-lg"
-              >
-                <Image
-                  src="/photo.png"
-                  alt={`Project ${i + 1}`}
-                  layout="fill"
-                  objectFit="cover"
-                  className="transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <svg
-                    className="w-10 h-10 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    ></path>
-                  </svg>
-                </div>
-              </Link>
+            {[
+              {
+                id: 1,
+                title: "YSYW",
+                image: "/ysyw.png",
+                link: "https://ysyw-website.vercel.app/",
+                status: "live"
+              },
+              {
+                id: 2,
+                title: "Aajoo Homes",
+                image: "/aajoo.png",
+                link: "https://aajoohomes.com/",
+                status: "development"
+              },
+              {
+                id: 3,
+                title: "Valance",
+                image: "/valance.png",
+                link: "https://valenceware.com/",
+                status: "live"
+              },
+              {
+                id: 4,
+                title: "ForgetAI",
+                image: "/forgetai.png",
+                link: "https://forgetai.siddhant.cc",
+                status: "live"
+              },
+              {
+                id: 5,
+                title: "Siddhant",
+                image: "/siddhant.png",
+                link: "https://www.siddhant.cc/",
+                status: "live"
+              },
+              {
+                id: 6,
+                title: "Apurv",
+                image: "/apurv.png",
+                link: "https://www.apurvabraj.space/",
+                status: "live"
+              }
+            ].map((project) => (
+              <div key={project.id} className="relative">
+                <Link
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative block aspect-video overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    layout="fill"
+                    objectFit={project.title === "Valance" || project.title === "Apurv" ? "contain" : "cover"}
+                    className={`transition-transform duration-300 group-hover:scale-105 ${
+                      project.title === "Valance" || project.title === "Apurv" ? "p-4" : ""
+                    }`}
+                  />
+                  <div className="absolute inset-0 bg-black/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
+                    <svg
+                      className="w-10 h-10 text-white mb-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      ></path>
+                    </svg>
+                    
+                    {/* Development Notice - appears below arrow on hover */}
+                    {project.status === "development" && (
+                      <div className="px-3 py-2 bg-blue-500/90 backdrop-blur-sm rounded-lg">
+                        <p className="text-xs text-white text-center font-medium">
+                          Currently in development - we are building their comprehensive mobile application
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Status Badge */}
+                  {project.status === "preview" && (
+                    <div className="absolute top-3 right-3 bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                      Preview
+                    </div>
+                  )}
+                </Link>
+              </div>
             ))}
           </div>
         </section>
