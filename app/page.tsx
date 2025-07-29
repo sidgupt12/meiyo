@@ -605,8 +605,8 @@ export default function HomePage() {
                 <h4 className="font-medium mb-4 text-black dark:text-white transition-colors">Contact</h4>
                 <ul className="space-y-2 text-gray-600 dark:text-gray-400 transition-colors">
                   <li>
-                    <Link href="mailto:meiyo@gmail.com" className="hover:text-black dark:hover:text-white transition-colors">
-                      meiyo@gmail.com
+                    <Link href="mailto:siddhant@meiyo.online" className="hover:text-black dark:hover:text-white transition-colors">
+                      siddhant@meiyo.online
                     </Link>
                   </li>
                 </ul>
