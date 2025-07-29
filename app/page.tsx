@@ -258,7 +258,7 @@ export default function HomePage() {
                 title: "YSYW",
                 image: "/ysyw.png",
                 link: "https://ysyw-website.vercel.app/",
-                status: "live"
+                status: "development"
               },
               {
                 id: 2,
@@ -286,13 +286,6 @@ export default function HomePage() {
                 title: "Siddhant",
                 image: "/siddhant.png",
                 link: "https://www.siddhant.cc/",
-                status: "live"
-              },
-              {
-                id: 6,
-                title: "Apurv",
-                image: "/apurv.png",
-                link: "https://www.apurvabraj.space/",
                 status: "live"
               }
             ].map((project) => (
