@@ -1,10 +1,37 @@
-"use client"
-
+import type { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+
+export const metadata: Metadata = {
+  title: "Our Philosophy - Meiyo",
+  description: "Discover the principles that guide our craft. Learn about the Japanese concept of 'meiyo' (honor) and how it shapes our approach to MVP development and client relationships.",
+  openGraph: {
+    title: "Our Philosophy - Meiyo",
+    description: "Discover the principles that guide our craft. Learn about the Japanese concept of 'meiyo' (honor) and how it shapes our approach to MVP development and client relationships.",
+    url: "https://meiyo.online/philosophy",
+    siteName: "Meiyo",
+    images: [
+      {
+        url: "/preview.png",
+        width: 1200,
+        height: 630,
+        alt: "Meiyo Philosophy - Japanese-inspired design agency",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Our Philosophy - Meiyo",
+    description: "Discover the principles that guide our craft. Learn about the Japanese concept of 'meiyo' (honor) and how it shapes our approach to MVP development and client relationships.",
+    images: ["/preview.png"],
+    creator: "@meiyo",
+  },
+}
 
 export default function PhilosophyPage() {
   return (
