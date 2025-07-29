@@ -184,7 +184,7 @@ export default function HomePage() {
             <div className="w-full aspect-video">
               <video
                 ref={videoRef}
-                src="https://video-worker.sidgupt12.workers.dev/meiyo.webm"
+                src="https://video-worker.sidgupt12.workers.dev/meiyo.mp4"
                 autoPlay
                 muted
                 loop
