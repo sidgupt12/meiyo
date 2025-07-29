@@ -375,7 +375,7 @@ export default function HomePage() {
             {/* Twin Garden */}
             <div className="bg-gray-50 dark:bg-custom-card p-8 rounded-2xl transition-colors">
               <h3 className="text-gray-600 dark:text-custom-gray mb-6 text-lg font-medium transition-colors">Twin Garden</h3>
-              <div className="text-5xl font-bold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>$1,799</div>
+              <div className="text-5xl font-bold mb-8 text-black dark:text-white transition-colors" style={{fontWeight: '700'}}>$1,499</div>
               <ul className="space-y-4 mb-12 text-left">
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1 text-lg">✓</span>
